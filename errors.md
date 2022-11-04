@@ -219,3 +219,4 @@ sol: added following block
 prob: CustomPagination
 wrong class variable name 
 ## 6
+fix MovieFilter : filter was broken 
