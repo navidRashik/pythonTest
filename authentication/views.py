@@ -6,5 +6,5 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
-    permission_classes = (IsAdminUser,)
+    permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer

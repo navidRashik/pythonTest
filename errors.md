@@ -1,13 +1,15 @@
 # Solved errors
 
-### 1
+## 1
+
 ```
 RuntimeError: Model class movies.models.Movie doesn't declare an explicit app_label and isn't in an application in INSTALLED_APPS.
 ```
 
-### 2
+## 2
 
 prob:
+
 ```
 ❯ http POST http://127.0.0.1:8000/api/v1/auth/register/ email="email@email.com" username="USERNAME" password1="PASSWORD" password2="PASSWORD"
 
@@ -100,10 +102,11 @@ X-Frame-Options: DENY
 </html>
 
 ```
-sol: added to urls 
 
+sol: added to urls
 
 prob:
+
 ```
     from authentication.views import RegisterView
   File "/home/navid/Downloads/Selise Python Developer Assessment - Final/InterviewExam/authentication/views.py", line 4, in <module>
@@ -121,4 +124,66 @@ AssertionError: May not set both `read_only` and `required`
 ````
 
 sol: removed read only as we need to set password through this serializer
+
+## 3
+
+```
+http POST http://127.0.0.1:8000/api/v1/auth/register/ email="email@email.com" username="USERNAME" password1="PASSWORD" password2="PASSWORD"
+HTTP/1.1 401 Unauthorized
+Allow: POST, OPTIONS
+Content-Length: 58
+Content-Type: application/json
+Date: Fri, 04 Nov 2022 16:49:22 GMT
+Referrer-Policy: same-origin
+Server: WSGIServer/0.2 CPython/3.9.7
+Vary: Accept
+WWW-Authenticate: Bearer realm="api"
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+
+{
+    "detail": "Authentication credentials were not provided."
+}
+
+
+❯ http POST http://127.0.0.1:8000/api/v1/auth/register/ email="email@email.com" username="USERNAME" password1="PASSWORD" password2="PASSWORD"
+HTTP/1.1 400 Bad Request
+Allow: POST, OPTIONS
+Content-Length: 40
+Content-Type: application/json
+Date: Fri, 04 Nov 2022 16:50:44 GMT
+Referrer-Policy: same-origin
+Server: WSGIServer/0.2 CPython/3.9.7
+Vary: Accept
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+
+{
+    "password": [
+        "This field is required."
+    ]
+}
+
+    ```
+sol: Allowany, chaged source and updated reciving variable of the serializer
+
+
+prob:
+```
+#if attrs['password'] == attrs['password2']:
+        #     raise serializers.ValidationError(
+        #         {"password": "Password fields didn't match."})
+```
+sol:removed wrong validations
+
+prb:
+```
+Got AttributeError when attempting to get a value for field `password2` on serializer `RegisterSerializer`.
+The serializer field might be named incorrectly and not match any attribute or key on the `User` instance.
+Original exception text was: 'User' object has no attribute 'password2'.
+
+Request Method: 	POST
+Request URL: 	http://127.0.0.1:8000/api/v1/auth/register/
+```
+sol: password2 converted to write only field and same for password1
 

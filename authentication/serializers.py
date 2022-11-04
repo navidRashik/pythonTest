@@ -10,23 +10,23 @@ class RegisterSerializer(serializers.ModelSerializer):
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
 
-    password = serializers.CharField(
-        required=True, validators=[validate_password],
+    password1 = serializers.CharField(
+        required=True, validators=[validate_password], source='password', write_only=True,
         style={'input_type': 'password', 'placeholder': 'Password'}
     )
     password2 = serializers.CharField(
-        required=True, style={'input_type': 'password', 'placeholder': 'Password'}
+        required=True, style={'input_type': 'password', 'placeholder': 'Password'}, write_only=True,
     )
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2',
+        fields = ('username', 'password1', 'password2',
                   'email', 'first_name', 'last_name')
 
     def validate(self, attrs):
-        if attrs['password'] == attrs['password2']:
-            raise serializers.ValidationError(
-                {"password": "Password fields didn't match."})
+        # if attrs['password'] == attrs['password2']:
+        #     raise serializers.ValidationError(
+        #         {"password": "Password fields didn't match."})
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError(
                 {"password": "Password fields didn't match."})
