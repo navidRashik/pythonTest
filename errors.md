@@ -215,3 +215,7 @@ sol: added following block
             self.queryset = Movie.objects.filter(creator=self.request.user)
         return super().get_queryset()
 ```
+## 5
+prob: CustomPagination
+wrong class variable name 
+## 6
