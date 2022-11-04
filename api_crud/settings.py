@@ -41,8 +41,9 @@ REST_FRAMEWORK = {
 
 
 # Application definition
-APPS = [
+DJANGO_APPS = [
     'movies',
+    'authentication',
 ]
 
 INSTALLED_APPS = [
@@ -54,9 +55,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'authentication',
 
-]+APPS
+]+DJANGO_APPS
 
 SITE_ID = 1
 
