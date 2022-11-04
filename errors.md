@@ -187,3 +187,11 @@ Request URL: 	http://127.0.0.1:8000/api/v1/auth/register/
 ```
 sol: password2 converted to write only field and same for password1
 
+## 4 
+prb: following was wroking without token
+
+```
+http  http://127.0.0.1:8000/api/v1/movies/ 
+```
+
+sol:  permissions.IsAuthenticated
