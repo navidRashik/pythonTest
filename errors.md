@@ -121,7 +121,7 @@ prob:
     assert not (read_only and required), NOT_READ_ONLY_REQUIRED
 AssertionError: May not set both `read_only` and `required`
 
-````
+```
 
 sol: removed read only as we need to set password through this serializer
 
@@ -163,35 +163,45 @@ X-Frame-Options: DENY
         "This field is required."
     ]
 }
+```
 
-    ```
 sol: Allowany, chaged source and updated reciving variable of the serializer
 
-
 prob:
+
 ```
-#if attrs['password'] == attrs['password2']:
+
+# if attrs['password'] == attrs['password2']:
         #     raise serializers.ValidationError(
         #         {"password": "Password fields didn't match."})
+
 ```
+
 sol:removed wrong validations
 
 prb:
+
 ```
+
 Got AttributeError when attempting to get a value for field `password2` on serializer `RegisterSerializer`.
 The serializer field might be named incorrectly and not match any attribute or key on the `User` instance.
 Original exception text was: 'User' object has no attribute 'password2'.
 
-Request Method: 	POST
-Request URL: 	http://127.0.0.1:8000/api/v1/auth/register/
+Request Method:  POST
+Request URL:  <http://127.0.0.1:8000/api/v1/auth/register/>
+
 ```
+
 sol: password2 converted to write only field and same for password1
 
-## 4 
+## 4
+
 prb: following was wroking without token
 
 ```
-http  http://127.0.0.1:8000/api/v1/movies/ 
+
+http  <http://127.0.0.1:8000/api/v1/movies/>
+
 ```
 
 sol:  permissions.IsAuthenticated

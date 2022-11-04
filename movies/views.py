@@ -4,8 +4,9 @@ from .models import Movie
 from .serializers import MovieSerializer
 from .pagination import CustomPagination
 from .filters import MovieFilter
-from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 # Removes permissions from views
+
 
 class ListCreateMovieAPIView(ListCreateAPIView):
     serializer_class = MovieSerializer
@@ -13,7 +14,7 @@ class ListCreateMovieAPIView(ListCreateAPIView):
     pagination_class = CustomPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = MovieFilter
-    permission_classes = permissions.IsAuthenticated
+    permission_classes = [IsAuthenticated,]
 
     def perform_create(self, serializer):
         # Assign the user who created the movie
@@ -23,9 +24,4 @@ class ListCreateMovieAPIView(ListCreateAPIView):
 class RetrieveUpdateDestroyMovieAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = MovieSerializer
     queryset = Movie.objects.all()
-
-
-
-
-
-
+    
