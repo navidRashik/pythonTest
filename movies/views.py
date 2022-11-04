@@ -14,7 +14,7 @@ class ListCreateMovieAPIView(ListCreateAPIView):
     pagination_class = CustomPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = MovieFilter
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
 
     def perform_create(self, serializer):
         # Assign the user who created the movie
@@ -24,4 +24,8 @@ class ListCreateMovieAPIView(ListCreateAPIView):
 class RetrieveUpdateDestroyMovieAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = MovieSerializer
     queryset = Movie.objects.all()
-    
+
+    def get_queryset(self):
+        if self.request.method != 'GET':
+            self.queryset = Movie.objects.filter(creator=self.request.user)
+        return super().get_queryset()

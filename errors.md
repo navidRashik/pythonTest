@@ -205,3 +205,13 @@ http  <http://127.0.0.1:8000/api/v1/movies/>
 ```
 
 sol:  permissions.IsAuthenticated
+
+prob: everyone was updating and deleting movies
+sol: added following block
+
+```
+ def get_queryset(self):
+        if self.request.method != 'GET':
+            self.queryset = Movie.objects.filter(creator=self.request.user)
+        return super().get_queryset()
+```
